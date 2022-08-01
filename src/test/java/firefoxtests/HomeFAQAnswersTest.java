@@ -14,13 +14,13 @@ import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
 
-public class HomeFAQAnswersTestFox {
+public class HomeFAQAnswersTest {
     private WebDriver foxDriver;
     private HomePage foxHomePage;
     private int questionNumber;
     private String expectedAnswer;
 
-    public HomeFAQAnswersTestFox(int questionNumber, String expectedAnswer) {
+    public HomeFAQAnswersTest(int questionNumber, String expectedAnswer) {
         this.questionNumber = questionNumber;
         this.expectedAnswer = expectedAnswer;
     }
