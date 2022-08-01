@@ -3,8 +3,6 @@ package pageobject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -12,7 +10,6 @@ public class HomePage {
 
     private WebDriver driver;
     private JavascriptExecutor js;
-    private Actions actions;
 
     //Раздел Вопросы о важном
     private By question0 = By.id("accordion__heading-0"); // Вопрос 1: Сколько это стоит? И как оплатить?
@@ -43,10 +40,9 @@ public class HomePage {
     }
 
     public void scrollToQuestion(int number) {
-        actions = new Actions (driver);
-        WebElement question = driver.findElement(questions[number]);
-        actions.moveToElement(question);
-        //actions.perform();
+        js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();", driver.findElement(questions[number]));
+
     }
     public void acceptCookies() {
         driver.findElement(acceptCookiesButton).click();
@@ -58,7 +54,7 @@ public class HomePage {
             throw new Exception("Question number must be between 0 and 7");
         }
         driver.findElement(questions[number]).click();
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(answers[number]));
+        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(answers[number]));
         String answer = driver.findElement(answers[number]).getText();
         return answer;
     }
