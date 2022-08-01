@@ -16,7 +16,6 @@ import static org.junit.Assert.*;
 public class HomeFAQAnswersTest {
 
     private WebDriver driver;
-    private JavascriptExecutor js;
     private HomePage objHomePage;
     private int questionNumber;
     private String expectedAnswer;
@@ -44,7 +43,6 @@ public class HomeFAQAnswersTest {
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        js = (JavascriptExecutor) driver;
         objHomePage = new HomePage(driver);
         driver.get("https://qa-scooter.praktikum-services.ru/");
         driver.manage().window().maximize();
