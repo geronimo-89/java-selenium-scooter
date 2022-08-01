@@ -5,6 +5,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage {
 
@@ -54,6 +56,7 @@ public class HomePage {
             throw new Exception("Question numbers must be between 0 and 7");
         }
         driver.findElement(questions[number]).click();
+        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(answers[number]));
         String answer = driver.findElement(answers[number]).getText();
         return answer;
     }
