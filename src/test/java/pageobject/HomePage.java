@@ -14,7 +14,7 @@ public class HomePage {
     private JavascriptExecutor js;
     private Actions actions;
 
-    private By faq = By.className("Home_FAQ__3uVm4"); //Раздел Вопросы о важном
+    //Раздел Вопросы о важном
     private By question0 = By.id("accordion__heading-0"); // Вопрос 1: Сколько это стоит? И как оплатить?
     private By answer0 = By.id("accordion__panel-0"); //ответ на вопрос 1
     private By question1 = By.id("accordion__heading-1"); // Вопрос 2: Хочу сразу несколько самокатов! Так можно?
@@ -33,6 +33,8 @@ public class HomePage {
     private By answer7 = By.id("accordion__panel-7"); //ответ на вопрос 8
     private By[] questions = {question0, question1, question2, question3, question4, question5, question6, question7};
     private By[] answers = {answer0, answer1, answer2, answer3, answer4, answer5, answer6, answer7};
+
+    //Cookies
     private By acceptCookiesButton = By.className("App_CookieButton__3cvqF"); //"да все привыкли" = кнопка принятия Кукиз
 
 
@@ -40,20 +42,20 @@ public class HomePage {
         this.driver = driver;
     }
 
-    public void scrollToQuestions() {
+    public void scrollToQuestion(int number) {
         actions = new Actions (driver);
-        WebElement faqList = driver.findElement(faq);
-        actions.moveToElement(faqList);
-        actions.perform();
+        WebElement question = driver.findElement(questions[number]);
+        actions.moveToElement(question);
+        //actions.perform();
     }
     public void acceptCookies() {
         driver.findElement(acceptCookiesButton).click();
     }
 
-    public String getQuestionAnswer(int number) throws Exception
+    public String getAnswer(int number) throws Exception
     {
         if (number < 0 || number > (answers.length - 1)) {
-            throw new Exception("Question numbers must be between 0 and 7");
+            throw new Exception("Question number must be between 0 and 7");
         }
         driver.findElement(questions[number]).click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(answers[number]));

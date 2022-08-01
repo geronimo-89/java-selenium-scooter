@@ -50,8 +50,8 @@ public class HomeFAQAnswersTest {
 
     @Test
     public void checkFAQAnswer() throws Exception {
-        objHomePage.scrollToQuestions();
-        String actualAnswer = objHomePage.getQuestionAnswer(questionNumber);
+        objHomePage.scrollToQuestion(questionNumber);
+        String actualAnswer = objHomePage.getAnswer(questionNumber);
         assertEquals(expectedAnswer, actualAnswer);
     }
 
