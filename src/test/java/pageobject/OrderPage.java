@@ -1,10 +1,16 @@
 package pageobject;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class OrderPage {
+
+    public OrderPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
 
     private WebDriver driver;
     private JavascriptExecutor js;
@@ -54,10 +60,6 @@ public class OrderPage {
         String xpath3 = "']";
         String fullXpath = xpath1 + xpath2 + xpath3;
         return fullXpath;
-    }
-
-    public OrderPage(WebDriver driver) {
-        this.driver = driver;
     }
 
     //Ожидание загрузки страницы Для кого самокат

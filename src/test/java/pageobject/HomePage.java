@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -15,6 +16,11 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class HomePage {
+
+    public HomePage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
 
     private WebDriver driver;
     private JavascriptExecutor js;
@@ -49,10 +55,6 @@ public class HomePage {
 
     //Cookies
     private final By acceptCookiesButton = By.className("App_CookieButton__3cvqF"); //"да все привыкли" = кнопка принятия Кукиз
-
-    public HomePage(WebDriver driver) {
-        this.driver = driver;
-    }
 
     //Найти ответ на вопрос с нужным номером и промотать до него
     public HomePage scrollToQuestion(int number) {
