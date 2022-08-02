@@ -11,6 +11,10 @@ public class HomePage {
     private WebDriver driver;
     private JavascriptExecutor js;
 
+    //Кнопки Яндекс, Самокат
+    private By homePage = By.className("Home_HomePage__ZXKIX");
+    private By homePageButton = By.className("Header_LogoScooter__3lsAR"); //Кнопка Скутера
+
     //Кнопки заказа
     private By orderButtonUpper = By.xpath(".//div[@class='Header_Nav__AGCXC']/button[text()='Заказать']"); //кнопка Заказать вверху страницы
     private By orderButtonLower = By.xpath(".//div[@class='Home_FinishButton__1_cWm']/button[text()='Заказать']"); //кнопка Заказать внизу страницы
@@ -75,6 +79,21 @@ public class HomePage {
         js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", driver.findElement(orderButtonLower));
         driver.findElement(orderButtonLower).click();
+    }
+
+    //Переход к главной странице через логотип Скутера
+    public void goToHomePage() {
+        driver.findElement(homePageButton).click();
+    }
+
+    //Ожидание загрузки главной страницы
+    public void waitForHomePage() {
+        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(homePage));
+    }
+
+    //Показать текущий URL страницы
+    public String getCurrentURL() {
+        return driver.getCurrentUrl();
     }
 
 

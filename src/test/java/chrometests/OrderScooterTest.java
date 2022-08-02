@@ -1,3 +1,5 @@
+package chrometests;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
@@ -14,7 +16,7 @@ public class OrderScooterTest {
     private WebDriver chromeDriver;
     private HomePage chromeHomePage;
     private OrderPage chromeOrderPage;
-    private String expectedOrderConfirmText = "Заказ оформлен";
+    private static final String EXPECTED_ORDER_CONFIRM_TEXT = "Заказ оформлен";
     private static final String STATION_MAYAKOVSKAYA = "Маяковская";
     private static final String STATION_PLANERNAYA = "Планерная";
 
@@ -47,7 +49,7 @@ public class OrderScooterTest {
         chromeOrderPage.confirmOrder();
         chromeOrderPage.waitForOrderConfirm();
         String actualOrderConfirmText = chromeOrderPage.getOrderConfirmation();
-        assertTrue(actualOrderConfirmText.contains(expectedOrderConfirmText));
+        assertTrue(actualOrderConfirmText.contains(EXPECTED_ORDER_CONFIRM_TEXT));
     }
 
     @Test
@@ -67,7 +69,7 @@ public class OrderScooterTest {
         chromeOrderPage.confirmOrder();
         chromeOrderPage.waitForOrderConfirm();
         String actualOrderConfirmText = chromeOrderPage.getOrderConfirmation();
-        assertTrue(actualOrderConfirmText.contains(expectedOrderConfirmText));
+        assertTrue(actualOrderConfirmText.contains(EXPECTED_ORDER_CONFIRM_TEXT));
 
     }
 
