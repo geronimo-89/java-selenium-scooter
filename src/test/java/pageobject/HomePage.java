@@ -11,6 +11,10 @@ public class HomePage {
     private WebDriver driver;
     private JavascriptExecutor js;
 
+    //Кнопки заказа
+    private By orderButtonUpper = By.xpath(".//div[@class='Header_Nav__AGCXC']/button[text()='Заказать']"); //кнопка Заказать вверху страницы
+    private By orderButtonLower = By.xpath(".//div[@class='Home_FinishButton__1_cWm']/button[text()='Заказать']"); //кнопка Заказать внизу страницы
+
     //Раздел Вопросы о важном
     private By question0 = By.id("accordion__heading-0"); // Вопрос 1: Сколько это стоит? И как оплатить?
     private By answer0 = By.id("accordion__panel-0"); //ответ на вопрос 1
@@ -34,22 +38,24 @@ public class HomePage {
     //Cookies
     private By acceptCookiesButton = By.className("App_CookieButton__3cvqF"); //"да все привыкли" = кнопка принятия Кукиз
 
-
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
 
+    //Найти ответ на вопрос с нужным номером и промотать до него
     public void scrollToQuestion(int number) {
         js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", driver.findElement(questions[number]));
 
     }
+
+    //Принять куки
     public void acceptCookies() {
         driver.findElement(acceptCookiesButton).click();
     }
 
-    public String getAnswer(int number) throws Exception
-    {
+    //Получить ответ на вопрос с выбранным номером со страницы
+    public String getAnswer(int number) throws Exception {
         if (number < 0 || number > (answers.length - 1)) {
             throw new Exception("Question number must be between 0 and 7");
         }
@@ -57,6 +63,18 @@ public class HomePage {
         new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(answers[number]));
         String answer = driver.findElement(answers[number]).getText();
         return answer;
+    }
+
+    //Кликаем кнопку Заказать вверху страницы
+    public void orderMethod1() {
+        driver.findElement(orderButtonUpper).click();
+    }
+
+    //Кликаем кнопку Заказать внизу страницы
+    public void orderMethod2() {
+        js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();", driver.findElement(orderButtonLower));
+        driver.findElement(orderButtonLower).click();
     }
 
 
