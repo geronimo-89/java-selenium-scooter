@@ -1,81 +1,62 @@
 package chrometests;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import pageobject.HomePage;
-import pageobject.OrderPage;
+import setup.SetUpChrome;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
-public class OrderScooterTest {
+public class OrderScooterTest extends SetUpChrome {
 
-    private WebDriver chromeDriver;
-    private HomePage chromeHomePage;
-    private OrderPage chromeOrderPage;
     private static final String EXPECTED_ORDER_CONFIRM_TEXT = "Заказ оформлен";
     private static final String STATION_MAYAKOVSKAYA = "Маяковская";
     private static final String STATION_PLANERNAYA = "Планерная";
 
-    @Before
-    public void setUpChrome() {
-        WebDriverManager.chromedriver().setup();
-        chromeDriver = new ChromeDriver();
-        chromeHomePage = new HomePage(chromeDriver);
-        chromeOrderPage = new OrderPage(chromeDriver);
-        chromeDriver.get("https://qa-scooter.praktikum-services.ru/");
-        chromeDriver.manage().window().maximize();
-        chromeHomePage.acceptCookies();
-    }
 
     @Test
     public void makeOrder1() {
-        chromeHomePage.orderMethod1();
-        chromeOrderPage.waitForOrderDetailsPage1();
-        chromeOrderPage.inputNameSurname("Александр", "Пушкин");
-        chromeOrderPage.inputAddress("г. Москва ул. Тверская 99");
-        chromeOrderPage.selectMetroStation(STATION_MAYAKOVSKAYA);
-        chromeOrderPage.inputPhoneNumber("89162223344");
-        chromeOrderPage.clickNext();
-        chromeOrderPage.waitForOrderDetailsPage2();
-        chromeOrderPage.selectDeliveryDateTomorrow();
-        chromeOrderPage.selectRentDaysMin();
-        chromeOrderPage.selectBlackColor();
-        chromeOrderPage.selectGreyColor();
-        chromeOrderPage.makeOrder();
-        chromeOrderPage.confirmOrder();
-        chromeOrderPage.waitForOrderConfirm();
-        String actualOrderConfirmText = chromeOrderPage.getOrderConfirmation();
-        assertTrue(actualOrderConfirmText.contains(EXPECTED_ORDER_CONFIRM_TEXT));
+        assertTrue((
+                homePage
+                        .orderMethod1()
+                        .waitForOrderDetailsPage1()
+                        .inputNameSurname("Александр", "Пушкин")
+                        .inputAddress("г. Москва ул. Тверская 99")
+                        .selectMetroStation(STATION_MAYAKOVSKAYA)
+                        .inputPhoneNumber("89162223344")
+                        .clickNext()
+                        .waitForOrderDetailsPage2()
+                        .selectDeliveryDateTomorrow()
+                        .selectRentDaysMin()
+                        .selectBlackColor()
+                        .selectGreyColor()
+                        .placeOrder()
+                        .confirmOrder()
+                        .waitForOrderConfirm()
+                        .getOrderConfirmation()
+        )
+                .contains(EXPECTED_ORDER_CONFIRM_TEXT));
     }
 
     @Test
     public void makeOrder2() {
-        chromeHomePage.orderMethod2();
-        chromeOrderPage.waitForOrderDetailsPage1();
-        chromeOrderPage.inputNameSurname("Вениамин", "Череззаборногузадерищенко");
-        chromeOrderPage.inputAddress("город Химки, улица Дружбы, дом 1");
-        chromeOrderPage.inputMetroStation(STATION_PLANERNAYA);
-        chromeOrderPage.inputPhoneNumber("+79035556699");
-        chromeOrderPage.clickNext();
-        chromeOrderPage.waitForOrderDetailsPage2();
-        chromeOrderPage.selectDeliveryDateLastDayOfNextMonth();
-        chromeOrderPage.selectRentDaysMax();
-        chromeOrderPage.addComment("Позвоните за час до доставки");
-        chromeOrderPage.makeOrder();
-        chromeOrderPage.confirmOrder();
-        chromeOrderPage.waitForOrderConfirm();
-        String actualOrderConfirmText = chromeOrderPage.getOrderConfirmation();
-        assertTrue(actualOrderConfirmText.contains(EXPECTED_ORDER_CONFIRM_TEXT));
+        assertTrue((
+                homePage
+                        .orderMethod2()
+                        .waitForOrderDetailsPage1()
+                        .inputNameSurname("Вениамин", "Череззаборногузадерищенко")
+                        .inputAddress("город Химки, улица Дружбы, дом 1")
+                        .inputMetroStation(STATION_PLANERNAYA)
+                        .inputPhoneNumber("+79035556699")
+                        .clickNext()
+                        .waitForOrderDetailsPage2()
+                        .selectDeliveryDateLastDayOfNextMonth()
+                        .selectRentDaysMax()
+                        .addComment("Позвоните за час до доставки")
+                        .placeOrder()
+                        .confirmOrder()
+                        .waitForOrderConfirm()
+                        .getOrderConfirmation()
+        )
+                .contains(EXPECTED_ORDER_CONFIRM_TEXT));
 
     }
-
-    @After
-    public void tearDown() {
-        chromeDriver.quit();
-    }
-
 }

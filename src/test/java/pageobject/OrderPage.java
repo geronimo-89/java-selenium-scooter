@@ -9,41 +9,43 @@ public class OrderPage {
     private WebDriver driver;
     private JavascriptExecutor js;
 
+    //Переход на главную
+    private final By homePageButton = By.className("Header_LogoScooter__3lsAR");
 
     //Для кого самокат
-    private By inputFirstName = By.xpath(".//input[contains(@placeholder, 'Имя')]"); //Имя
-    private By inputSurname = By.xpath(".//input[contains(@placeholder, 'Фамилия')]"); //Фамилия
-    private By inputAddress = By.xpath(".//input[contains(@placeholder, 'Адрес')]"); //Адрес
-    private By inputMetroStation = By.xpath(".//input[contains(@placeholder, 'Станция метро')]"); //Станция метро
-    private By inputPhoneNumber = By.xpath(".//input[contains(@placeholder, 'Телефон')]"); //Телефон
-    private By nextButton = By.xpath(".//button[text()='Далее']"); //кнопка Далее
+    private final By inputFirstName = By.xpath(".//input[contains(@placeholder, 'Имя')]"); //Имя
+    private final By inputSurname = By.xpath(".//input[contains(@placeholder, 'Фамилия')]"); //Фамилия
+    private final By inputAddress = By.xpath(".//input[contains(@placeholder, 'Адрес')]"); //Адрес
+    private final By inputMetroStation = By.xpath(".//input[contains(@placeholder, 'Станция метро')]"); //Станция метро
+    private final By inputPhoneNumber = By.xpath(".//input[contains(@placeholder, 'Телефон')]"); //Телефон
+    private final By nextButton = By.xpath(".//button[text()='Далее']"); //кнопка Далее
 
     //Про аренду
-    private By inputDeliveryDate = By.xpath(".//input[contains(@placeholder, 'Когда привезти')]"); //Когда привезти самокат
-    private By inputRentDays = By.xpath(".//div[contains(text(), 'Срок аренды')]"); //Срок аренды
-    private By blackColor = By.id("black"); //Цвет самоката - чёрный жемчуг (выбор цвета необязателен)
-    private By greyColor = By.id("grey"); //Цвет самоката - серая безысходность (выбор цвета необязателен)
-    private By inputComment = By.xpath(".//input[contains(@placeholder, 'Комментарий для курьера')]"); //Комментарий для курьера - необязательное поле
-    private By finishOrderButton = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[text()='Заказать']"); // Кнопка Заказать
+    private final By inputDeliveryDate = By.xpath(".//input[contains(@placeholder, 'Когда привезти')]"); //Когда привезти самокат
+    private final By inputRentDays = By.xpath(".//div[contains(text(), 'Срок аренды')]"); //Срок аренды
+    private final By blackColor = By.id("black"); //Цвет самоката - чёрный жемчуг (выбор цвета необязателен)
+    private final By greyColor = By.id("grey"); //Цвет самоката - серая безысходность (выбор цвета необязателен)
+    private final By inputComment = By.xpath(".//input[contains(@placeholder, 'Комментарий для курьера')]"); //Комментарий для курьера - необязательное поле
+    private final By finishOrderButton = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[text()='Заказать']"); // Кнопка Заказать
 
     //Подтверждение заказа
-    private By confirmOrderPopup = By.className("Order_Modal__YZ-d3"); //Хотите оформить заказ?
-    private By confirmOrderButton = By.xpath(".//button[text()='Да']"); //Да
-    private By orderConfirmedPopup = By.xpath(".//div[contains(text(), 'Заказ оформлен')]");
+    private final By confirmOrderPopup = By.className("Order_Modal__YZ-d3"); //Хотите оформить заказ?
+    private final By confirmOrderButton = By.xpath(".//button[text()='Да']"); //Да
+    private final By orderConfirmedPopup = By.xpath(".//div[contains(text(), 'Заказ оформлен')]");
 
     //Календарь
-    private By datePickerDisplay = By.className("react-datepicker__header"); //Поп-ап с календарем
-    private By selectNextMonth = By.xpath(".//div[@class='react-datepicker']/button[text()='Next Month']"); //Выбрать следующий месяц
-    private By tomorrow = By.xpath(".//div[contains(@class, 'react-datepicker__day')][preceding::div[contains(@class, 'react-datepicker__day--today')]]"); //Доставка на завтра
-    private By lastDayOfTheMonth = By.xpath(".//div[@class='react-datepicker__week'][last()]/div[contains(@class, 'react-datepicker__day--0') and not (contains(@class, 'react-datepicker__day--outside-month'))][last()]"); //Доставка на последний день выбранного месяца
+    private final By datePickerDisplay = By.className("react-datepicker__header"); //Поп-ап с календарем
+    private final By selectNextMonth = By.xpath(".//div[@class='react-datepicker']/button[text()='Next Month']"); //Выбрать следующий месяц
+    private final By tomorrow = By.xpath(".//div[contains(@class, 'react-datepicker__day')][preceding::div[contains(@class, 'react-datepicker__day--today')]]"); //Доставка на завтра
+    private final By lastDayOfTheMonth = By.xpath(".//div[@class='react-datepicker__week'][last()]/div[contains(@class, 'react-datepicker__day--0') and not (contains(@class, 'react-datepicker__day--outside-month'))][last()]"); //Доставка на последний день выбранного месяца
 
     //Срок аренды
-    private By rentDaysDisplay = By.className("Dropdown-menu"); //Поп-ап с выбором количества дней аренды
-    private By rentDaysMin = By.xpath(".//div[@class='Dropdown-option' and text()='сутки']");
-    private By rentDaysMax = By.xpath(".//div[@class='Dropdown-option' and text()='семеро суток']");
+    private final By rentDaysDisplay = By.className("Dropdown-menu"); //Поп-ап с выбором количества дней аренды
+    private final By rentDaysMin = By.xpath(".//div[@class='Dropdown-option' and text()='сутки']");
+    private final By rentDaysMax = By.xpath(".//div[@class='Dropdown-option' and text()='семеро суток']");
 
     //Метро - список станций получается при вводе <setTimeout(function() {debugger;}, 5000);> в консоли
-    private By stationListDisplay = By.className("select-search__select"); //Поп-ап списка станций
+    private final By stationListDisplay = By.className("select-search__select"); //Поп-ап списка станций
 
     //Получить xpath станции по названию
     public String getXpathByStationName(String name) {
@@ -59,115 +61,134 @@ public class OrderPage {
     }
 
     //Ожидание загрузки страницы Для кого самокат
-    public void waitForOrderDetailsPage1() {
+    public OrderPage waitForOrderDetailsPage1() {
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(inputFirstName));
+        return this;
     }
 
     //Ввод имени и фамилии
-    public void inputNameSurname(String name, String surname) {
+    public OrderPage inputNameSurname(String name, String surname) {
         driver.findElement(inputFirstName).sendKeys(name);
         driver.findElement(inputSurname).sendKeys(surname);
+        return this;
     }
 
     //Ввод адреса
-    public void inputAddress(String address) {
+    public OrderPage inputAddress(String address) {
         driver.findElement(inputAddress).sendKeys(address);
+        return this;
     }
 
     //Выбор станции метро через ввод
-    public void inputMetroStation(String stationName) {
+    public OrderPage inputMetroStation(String stationName) {
         driver.findElement(inputMetroStation).click();
         driver.findElement(inputMetroStation).sendKeys(stationName);
         driver.findElement(inputMetroStation).sendKeys(Keys.DOWN);
         driver.findElement(inputMetroStation).sendKeys(Keys.RETURN);
+        return this;
     }
+
     //Выбор станции метро через скролл
-    public void selectMetroStation(String name) {
+    public OrderPage selectMetroStation(String name) {
         driver.findElement(inputMetroStation).click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(stationListDisplay));
         By station = By.xpath(getXpathByStationName(name));
         js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", driver.findElement(station));
         driver.findElement(station).click();
+        return this;
     }
 
     //Ввод номера телефона
-    public void inputPhoneNumber(String phoneNumber) {
+    public OrderPage inputPhoneNumber(String phoneNumber) {
         driver.findElement(inputPhoneNumber).sendKeys(phoneNumber);
+        return this;
     }
 
     //Переход к странице Про аренду
-    public void clickNext() {
+    public OrderPage clickNext() {
         driver.findElement(nextButton).click();
+        return this;
     }
 
     //Ожидание загрузки страницы Про аренду
-    public void waitForOrderDetailsPage2() {
+    public OrderPage waitForOrderDetailsPage2() {
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(inputDeliveryDate));
+        return this;
     }
 
     //Выбор доставки на завтра
-    public void selectDeliveryDateTomorrow() {
+    public OrderPage selectDeliveryDateTomorrow() {
         driver.findElement(inputDeliveryDate).click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(datePickerDisplay));
         driver.findElement(tomorrow).click();
+        return this;
     }
 
     //Выбор доставки на последний день следующего месяца
-    public void selectDeliveryDateLastDayOfNextMonth() {
+    public OrderPage selectDeliveryDateLastDayOfNextMonth() {
         driver.findElement(inputDeliveryDate).click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(selectNextMonth));
         driver.findElement(selectNextMonth).click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(lastDayOfTheMonth));
         driver.findElement(lastDayOfTheMonth).click();
+        return this;
     }
 
     //Выбор минимального срока аренды самоката
-    public void selectRentDaysMin() {
+    public OrderPage selectRentDaysMin() {
         driver.findElement(inputRentDays).click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(rentDaysDisplay));
         driver.findElement(rentDaysMin).click();
+        return this;
     }
 
     //Выбор максимального срока аренды самоката
-    public void selectRentDaysMax() {
+    public OrderPage selectRentDaysMax() {
         driver.findElement(inputRentDays).click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(rentDaysDisplay));
         js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", driver.findElement(rentDaysMax));
         driver.findElement(rentDaysMax).click();
+        return this;
     }
 
     //Выбор цвета самоката: черный - опционально
-    public void selectBlackColor() {
+    public OrderPage selectBlackColor() {
         driver.findElement(blackColor).click();
+        return this;
     }
 
     //Выбор цвета самоката: серый - опционально
-    public void selectGreyColor() {
+    public OrderPage selectGreyColor() {
         driver.findElement(greyColor).click();
+        return this;
     }
 
     //Добавление комментария - опционально
-    public void addComment(String comment) {
+    public OrderPage addComment(String comment) {
         driver.findElement(inputComment).sendKeys(comment);
+        return this;
     }
 
     //Заказать
-    public void makeOrder() {
+    public OrderPage placeOrder() {
         new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(finishOrderButton));
         driver.findElement(finishOrderButton).click();
+        return this;
     }
 
     //Подтверждение заказа
-    public void confirmOrder() {
+    public OrderPage confirmOrder() {
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(confirmOrderPopup));
         driver.findElement(confirmOrderButton).click();
+        return this;
     }
 
     //Ожидание окна подтверждения заказа
-    public void waitForOrderConfirm() {
+    public OrderPage waitForOrderConfirm() {
         new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(orderConfirmedPopup));
+        return this;
     }
 
     //Получение подтверждения заказа
@@ -175,4 +196,9 @@ public class OrderPage {
         return driver.findElement(orderConfirmedPopup).getText();
     }
 
+    //Переход к главной странице через логотип Скутера
+    public HomePage goToHomePage() {
+        driver.findElement(homePageButton).click();
+        return new HomePage(driver);
+    }
 }

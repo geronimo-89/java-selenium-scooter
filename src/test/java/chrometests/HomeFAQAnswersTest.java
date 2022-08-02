@@ -1,23 +1,15 @@
 package chrometests;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import pageobject.HomePage;
-
-import static org.junit.Assert.*;
+import setup.SetUpChrome;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 
-public class HomeFAQAnswersTest {
+public class HomeFAQAnswersTest extends SetUpChrome {
 
-    private WebDriver chromeDriver;
-    private HomePage chromeHomePage;
     private int questionNumber;
     private String expectedAnswer;
 
@@ -40,27 +32,13 @@ public class HomeFAQAnswersTest {
         };
     }
 
-    @Before
-    public void setUpChrome() {
-        WebDriverManager.chromedriver().setup();
-        chromeDriver = new ChromeDriver();
-        chromeHomePage = new HomePage(chromeDriver);
-        chromeDriver.get("https://qa-scooter.praktikum-services.ru/");
-        chromeDriver.manage().window().maximize();
-        chromeHomePage.acceptCookies();
-
-    }
-
     @Test
-    public void checkFAQAnswers() throws Exception {
-        chromeHomePage.scrollToQuestion(questionNumber);
-        String actualAnswer = chromeHomePage.getAnswer(questionNumber);
-        assertEquals(expectedAnswer, actualAnswer);
-
-    }
-
-    @After
-    public void tearDown() {
-        chromeDriver.quit();
+    public void checkFAQAnswer() throws Exception {
+        assertEquals(
+                expectedAnswer,
+                homePage
+                        .scrollToQuestion(questionNumber)
+                        .getAnswer(questionNumber)
+        );
     }
 }
