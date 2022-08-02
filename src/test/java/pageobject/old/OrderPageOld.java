@@ -1,14 +1,16 @@
-package pageobject;
+package pageobject.old;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pageobject.old.HomePageOld;
 
-public class OrderPage {
+public class OrderPageOld {
 
-    public OrderPage(WebDriver driver) {
+    public OrderPageOld(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -64,26 +66,26 @@ public class OrderPage {
     }
 
     //Ожидание загрузки страницы Для кого самокат
-    public OrderPage waitForOrderDetailsPage1() {
+    public OrderPageOld waitForOrderDetailsPage1() {
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(inputFirstName));
         return this;
     }
 
     //Ввод имени и фамилии
-    public OrderPage inputNameSurname(String name, String surname) {
+    public OrderPageOld inputNameSurname(String name, String surname) {
         driver.findElement(inputFirstName).sendKeys(name);
         driver.findElement(inputSurname).sendKeys(surname);
         return this;
     }
 
     //Ввод адреса
-    public OrderPage inputAddress(String address) {
+    public OrderPageOld inputAddress(String address) {
         driver.findElement(inputAddress).sendKeys(address);
         return this;
     }
 
     //Выбор станции метро через ввод
-    public OrderPage inputMetroStation(String stationName) {
+    public OrderPageOld inputMetroStation(String stationName) {
         driver.findElement(inputMetroStation).click();
         driver.findElement(inputMetroStation).sendKeys(stationName);
         driver.findElement(inputMetroStation).sendKeys(Keys.DOWN);
@@ -92,7 +94,7 @@ public class OrderPage {
     }
 
     //Выбор станции метро через скролл
-    public OrderPage selectMetroStation(String name) {
+    public OrderPageOld selectMetroStation(String name) {
         driver.findElement(inputMetroStation).click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(stationListDisplay));
         By station = By.xpath(getXpathByStationName(name));
@@ -103,25 +105,25 @@ public class OrderPage {
     }
 
     //Ввод номера телефона
-    public OrderPage inputPhoneNumber(String phoneNumber) {
+    public OrderPageOld inputPhoneNumber(String phoneNumber) {
         driver.findElement(inputPhoneNumber).sendKeys(phoneNumber);
         return this;
     }
 
     //Переход к странице Про аренду
-    public OrderPage clickNext() {
+    public OrderPageOld clickNext() {
         driver.findElement(nextButton).click();
         return this;
     }
 
     //Ожидание загрузки страницы Про аренду
-    public OrderPage waitForOrderDetailsPage2() {
+    public OrderPageOld waitForOrderDetailsPage2() {
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(inputDeliveryDate));
         return this;
     }
 
     //Выбор доставки на завтра
-    public OrderPage selectDeliveryDateTomorrow() {
+    public OrderPageOld selectDeliveryDateTomorrow() {
         driver.findElement(inputDeliveryDate).click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(datePickerDisplay));
         driver.findElement(tomorrow).click();
@@ -129,7 +131,7 @@ public class OrderPage {
     }
 
     //Выбор доставки на последний день следующего месяца
-    public OrderPage selectDeliveryDateLastDayOfNextMonth() {
+    public OrderPageOld selectDeliveryDateLastDayOfNextMonth() {
         driver.findElement(inputDeliveryDate).click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(selectNextMonth));
         driver.findElement(selectNextMonth).click();
@@ -139,7 +141,7 @@ public class OrderPage {
     }
 
     //Выбор минимального срока аренды самоката
-    public OrderPage selectRentDaysMin() {
+    public OrderPageOld selectRentDaysMin() {
         driver.findElement(inputRentDays).click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(rentDaysDisplay));
         driver.findElement(rentDaysMin).click();
@@ -147,7 +149,7 @@ public class OrderPage {
     }
 
     //Выбор максимального срока аренды самоката
-    public OrderPage selectRentDaysMax() {
+    public OrderPageOld selectRentDaysMax() {
         driver.findElement(inputRentDays).click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(rentDaysDisplay));
         js = (JavascriptExecutor) driver;
@@ -157,39 +159,39 @@ public class OrderPage {
     }
 
     //Выбор цвета самоката: черный - опционально
-    public OrderPage selectBlackColor() {
+    public OrderPageOld selectBlackColor() {
         driver.findElement(blackColor).click();
         return this;
     }
 
     //Выбор цвета самоката: серый - опционально
-    public OrderPage selectGreyColor() {
+    public OrderPageOld selectGreyColor() {
         driver.findElement(greyColor).click();
         return this;
     }
 
     //Добавление комментария - опционально
-    public OrderPage addComment(String comment) {
+    public OrderPageOld addComment(String comment) {
         driver.findElement(inputComment).sendKeys(comment);
         return this;
     }
 
     //Заказать
-    public OrderPage placeOrder() {
+    public OrderPageOld placeOrder() {
         new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(finishOrderButton));
         driver.findElement(finishOrderButton).click();
         return this;
     }
 
     //Подтверждение заказа
-    public OrderPage confirmOrder() {
+    public OrderPageOld confirmOrder() {
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(confirmOrderPopup));
         driver.findElement(confirmOrderButton).click();
         return this;
     }
 
     //Ожидание окна подтверждения заказа
-    public OrderPage waitForOrderConfirm() {
+    public OrderPageOld waitForOrderConfirm() {
         new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(orderConfirmedPopup));
         return this;
     }

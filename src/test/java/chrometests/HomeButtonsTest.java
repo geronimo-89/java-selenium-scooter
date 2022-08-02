@@ -3,7 +3,7 @@ package chrometests;
 import org.junit.Test;
 import setup.SetUpChrome;
 import static org.junit.Assert.assertEquals;
-import static pageobject.HomePage.YANDEX_LINK;
+import static pageobject.old.HomePageOld.YANDEX_LINK;
 
 public class HomeButtonsTest extends SetUpChrome {
 
