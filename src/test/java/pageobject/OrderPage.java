@@ -2,13 +2,13 @@ package pageobject;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class OrderPage {
 
     private WebDriver driver;
     private JavascriptExecutor js;
+
 
     //Для кого самокат
     private By inputFirstName = By.xpath(".//input[contains(@placeholder, 'Имя')]"); //Имя
@@ -42,6 +42,18 @@ public class OrderPage {
     private By rentDaysMin = By.xpath(".//div[@class='Dropdown-option' and text()='сутки']");
     private By rentDaysMax = By.xpath(".//div[@class='Dropdown-option' and text()='семеро суток']");
 
+    //Метро - список станций получается при вводе <setTimeout(function() {debugger;}, 5000);> в консоли
+    private By stationListDisplay = By.className("select-search__select"); //Поп-ап списка станций
+
+    //Получить xpath станции по названию
+    public String getXpathByStationName(String name) {
+        String xpath1 = ".//div[@class='select-search__select']/ul/li[@class='select-search__row']/button/div[text()='";
+        String xpath2 = name;
+        String xpath3 = "']";
+        String fullXpath = xpath1 + xpath2 + xpath3;
+        return fullXpath;
+    }
+
     public OrderPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -62,12 +74,21 @@ public class OrderPage {
         driver.findElement(inputAddress).sendKeys(address);
     }
 
-    //Выбор станции метро
+    //Выбор станции метро через ввод
     public void inputMetroStation(String stationName) {
         driver.findElement(inputMetroStation).click();
         driver.findElement(inputMetroStation).sendKeys(stationName);
         driver.findElement(inputMetroStation).sendKeys(Keys.DOWN);
         driver.findElement(inputMetroStation).sendKeys(Keys.RETURN);
+    }
+    //Выбор станции метро через скролл
+    public void selectMetroStation(String name) {
+        driver.findElement(inputMetroStation).click();
+        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(stationListDisplay));
+        By station = By.xpath(getXpathByStationName(name));
+        js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();", driver.findElement(station));
+        driver.findElement(station).click();
     }
 
     //Ввод номера телефона

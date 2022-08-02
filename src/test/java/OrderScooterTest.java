@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import pageobject.HomePage;
 import pageobject.OrderPage;
 
@@ -16,6 +15,8 @@ public class OrderScooterTest {
     private HomePage chromeHomePage;
     private OrderPage chromeOrderPage;
     private String expectedOrderConfirmText = "Заказ оформлен";
+    private static final String STATION_MAYAKOVSKAYA = "Маяковская";
+    private static final String STATION_PLANERNAYA = "Планерная";
 
     @Before
     public void setUpChrome() {
@@ -34,7 +35,7 @@ public class OrderScooterTest {
         chromeOrderPage.waitForOrderDetailsPage1();
         chromeOrderPage.inputNameSurname("Александр", "Пушкин");
         chromeOrderPage.inputAddress("г. Москва ул. Тверская 99");
-        chromeOrderPage.inputMetroStation("Маяковская");
+        chromeOrderPage.selectMetroStation(STATION_MAYAKOVSKAYA);
         chromeOrderPage.inputPhoneNumber("89162223344");
         chromeOrderPage.clickNext();
         chromeOrderPage.waitForOrderDetailsPage2();
@@ -55,7 +56,7 @@ public class OrderScooterTest {
         chromeOrderPage.waitForOrderDetailsPage1();
         chromeOrderPage.inputNameSurname("Вениамин", "Череззаборногузадерищенко");
         chromeOrderPage.inputAddress("город Химки, улица Дружбы, дом 1");
-        chromeOrderPage.inputMetroStation("Планерная");
+        chromeOrderPage.inputMetroStation(STATION_PLANERNAYA);
         chromeOrderPage.inputPhoneNumber("+79035556699");
         chromeOrderPage.clickNext();
         chromeOrderPage.waitForOrderDetailsPage2();
