@@ -15,4 +15,9 @@ public class ScooterPages {
     public WebElement waitForElement(WebElement element) {
         return new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(element));
     }
+
+    public void scrollToElement(WebElement element) {
+        js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();", element);
+    }
 }

@@ -12,7 +12,6 @@ public class OrderPage extends ScooterPages {
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
-        js = (JavascriptExecutor) driver;
         PageFactory.initElements(driver, this);
     }
 
@@ -100,13 +99,13 @@ public class OrderPage extends ScooterPages {
     @FindBy(how = XPATH, using = ".//div[text()='Введите корректный номер']")
     private WebElement invalidPhoneNumberError; //Введите корректный номер
 
-    //Получить xpath станции по названию
-    public String getXpathByStationName(String name) {
+    //Получить элемент станции по названию
+    public WebElement getElementByStationName(String name) {
         String xpath1 = ".//div[@class='select-search__select']/ul/li[@class='select-search__row']/button/div[text()='";
         String xpath2 = name;
         String xpath3 = "']";
         String fullXpath = xpath1 + xpath2 + xpath3;
-        return fullXpath;
+        return driver.findElement(By.xpath(fullXpath));
     }
 
     //Ожидание загрузки страницы Для кого самокат
@@ -145,8 +144,8 @@ public class OrderPage extends ScooterPages {
     public OrderPage selectMetroStation(String name) {
         metroStationInput.click();
         waitForElement(stationListDisplay);
-        WebElement station = driver.findElement(By.xpath(getXpathByStationName(name)));
-        js.executeScript("arguments[0].scrollIntoView();", station);
+        WebElement station = getElementByStationName(name);
+        scrollToElement(station);
         station.click();
         return this;
     }
@@ -194,7 +193,7 @@ public class OrderPage extends ScooterPages {
     public OrderPage selectRentDaysMax() {
         rentDaysInput.click();
         waitForElement(rentDaysDisplay);
-        js.executeScript("arguments[0].scrollIntoView();", rentDaysMax);
+        scrollToElement(rentDaysMax);
         rentDaysMax.click();
         return this;
     }

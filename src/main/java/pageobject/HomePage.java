@@ -1,6 +1,5 @@
 package pageobject;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -19,7 +18,6 @@ public class HomePage extends ScooterPages {
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
-        js = (JavascriptExecutor) driver;
         PageFactory.initElements(driver, this);
     }
 
@@ -61,7 +59,7 @@ public class HomePage extends ScooterPages {
 
     //Найти ответ на вопрос с нужным номером и промотать до него
     public HomePage scrollToQuestion(int number) {
-        js.executeScript("arguments[0].scrollIntoView();", questionsList.get(number));
+        scrollToElement(questionsList.get(number));
         return this;
     }
 
@@ -90,7 +88,7 @@ public class HomePage extends ScooterPages {
 
     //Кликаем кнопку Заказать внизу страницы
     public OrderPage makeOrderFromLowerButton() {
-        js.executeScript("arguments[0].scrollIntoView();", orderButtonLower);
+        scrollToElement(orderButtonLower);
         orderButtonLower.click();
         return new OrderPage(driver);
     }
