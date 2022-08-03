@@ -16,8 +16,14 @@ public class ScooterPages {
         return new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(element));
     }
 
+    //Скролл до элемента
     public void scrollToElement(WebElement element) {
         js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", element);
+    }
+
+    //Показать текущий URL страницы
+    public String getCurrentURL() {
+        return driver.getCurrentUrl();
     }
 }

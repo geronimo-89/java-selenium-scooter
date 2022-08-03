@@ -98,11 +98,6 @@ public class HomePage extends ScooterPages {
         return this;
     }
 
-    //Показать текущий URL страницы
-    public String getCurrentURL() {
-        return driver.getCurrentUrl();
-    }
-
     //Кликнуть на логотип Яндекса
     public HomePage goToYandex() {
         yandexButton.click();
@@ -125,6 +120,7 @@ public class HomePage extends ScooterPages {
         return this;
     }
 
+    //Перейти на страницу со статусом заказа
     public TrackPage clickGoToOrderStatusButton() {
         goToOrderStatusButton.click();
         return new TrackPage(driver);
