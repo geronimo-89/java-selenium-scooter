@@ -13,7 +13,7 @@ public class HomeButtonsTest extends SetUpChrome {
                 HOME_PAGE_LINK,
                 homePage
                         .orderMethod2()
-                        .waitForOrderDetailsPage1()
+                        .waitForOrderPage()
                         .goToHomePage()
                         .waitForHomePage()
                         .getCurrentURL());

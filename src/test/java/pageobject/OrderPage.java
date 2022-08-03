@@ -1,6 +1,11 @@
 package pageobject;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+
+import static org.openqa.selenium.support.How.*;
+
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -10,49 +15,73 @@ public class OrderPage {
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
+        js = (JavascriptExecutor) driver;
         PageFactory.initElements(driver, this);
     }
 
     private WebDriver driver;
     private JavascriptExecutor js;
 
-    //Переход на главную
-    private final By homePageButton = By.className("Header_LogoScooter__3lsAR");
+    @FindBy(how = CLASS_NAME, using = "Header_LogoScooter__3lsAR")
+    private WebElement homePageButton; //На главную страницу
 
     //Для кого самокат
-    private final By inputFirstName = By.xpath(".//input[contains(@placeholder, 'Имя')]"); //Имя
-    private final By inputSurname = By.xpath(".//input[contains(@placeholder, 'Фамилия')]"); //Фамилия
-    private final By inputAddress = By.xpath(".//input[contains(@placeholder, 'Адрес')]"); //Адрес
-    private final By inputMetroStation = By.xpath(".//input[contains(@placeholder, 'Станция метро')]"); //Станция метро
-    private final By inputPhoneNumber = By.xpath(".//input[contains(@placeholder, 'Телефон')]"); //Телефон
-    private final By nextButton = By.xpath(".//button[text()='Далее']"); //кнопка Далее
+    @FindBy(how = XPATH, using = ".//input[contains(@placeholder, 'Имя')]")
+    private WebElement inputFirstName; //Имя
+    @FindBy(how = XPATH, using = ".//input[contains(@placeholder, 'Фамилия')]")
+    private WebElement inputSurname; //Фамилия
+    @FindBy(how = XPATH, using = ".//input[contains(@placeholder, 'Адрес')]")
+    private WebElement inputAddress; //Адрес
+    @FindBy(how = XPATH, using = ".//input[contains(@placeholder, 'Станция метро')]")
+    private WebElement inputMetroStation; //Станция метро
+    @FindBy(how = XPATH, using = ".//input[contains(@placeholder, 'Телефон')]")
+    private WebElement inputPhoneNumber; //Телефон
+    @FindBy(how = XPATH, using = ".//button[text()='Далее']")
+    private WebElement nextButton; //кнопка Далее
 
     //Про аренду
-    private final By inputDeliveryDate = By.xpath(".//input[contains(@placeholder, 'Когда привезти')]"); //Когда привезти самокат
-    private final By inputRentDays = By.xpath(".//div[contains(text(), 'Срок аренды')]"); //Срок аренды
-    private final By blackColor = By.id("black"); //Цвет самоката - чёрный жемчуг (выбор цвета необязателен)
-    private final By greyColor = By.id("grey"); //Цвет самоката - серая безысходность (выбор цвета необязателен)
-    private final By inputComment = By.xpath(".//input[contains(@placeholder, 'Комментарий для курьера')]"); //Комментарий для курьера - необязательное поле
-    private final By finishOrderButton = By.xpath(".//div[@class='Order_Buttons__1xGrp']/button[text()='Заказать']"); // Кнопка Заказать
+    @FindBy(how = XPATH, using = ".//input[contains(@placeholder, 'Когда привезти')]")
+    private WebElement inputDeliveryDate; //Когда привезти самокат
+    @FindBy(how = XPATH, using = ".//div[contains(text(), 'Срок аренды')]")
+    private WebElement inputRentDays; //Срок аренды
+    @FindBy(how = ID, using = "black")
+    private WebElement blackColor; //Цвет самоката - чёрный жемчуг
+    @FindBy(how = ID, using = "grey")
+    private WebElement greyColor; //Цвет самоката - серая безысходность
+    @FindBy(how = XPATH, using = ".//input[contains(@placeholder, 'Комментарий для курьера')]")
+    private WebElement inputComment; //Комментарий для курьера - необязательное поле
+    @FindBy(how = XPATH, using = ".//div[@class='Order_Buttons__1xGrp']/button[text()='Заказать']")
+    private WebElement finishOrderButton; // Кнопка Заказать
 
     //Подтверждение заказа
-    private final By confirmOrderPopup = By.className("Order_Modal__YZ-d3"); //Хотите оформить заказ?
-    private final By confirmOrderButton = By.xpath(".//button[text()='Да']"); //Да
-    private final By orderConfirmedPopup = By.xpath(".//div[contains(text(), 'Заказ оформлен')]");
+    @FindBy(how = CLASS_NAME, using = "Order_Modal__YZ-d3")
+    private WebElement confirmOrderPopup; //Хотите оформить заказ?
+    @FindBy(how = XPATH, using = ".//button[text()='Да']")
+    private WebElement confirmOrderButton; //Да
+    @FindBy(how = XPATH, using = ".//div[contains(text(), 'Заказ оформлен')]")
+    private WebElement orderConfirmedPopup; //Поп-ап: заказ оформлен
 
     //Календарь
-    private final By datePickerDisplay = By.className("react-datepicker__header"); //Поп-ап с календарем
-    private final By selectNextMonth = By.xpath(".//div[@class='react-datepicker']/button[text()='Next Month']"); //Выбрать следующий месяц
-    private final By tomorrow = By.xpath(".//div[contains(@class, 'react-datepicker__day')][preceding::div[contains(@class, 'react-datepicker__day--today')]]"); //Доставка на завтра
-    private final By lastDayOfTheMonth = By.xpath(".//div[@class='react-datepicker__week'][last()]/div[contains(@class, 'react-datepicker__day--0') and not (contains(@class, 'react-datepicker__day--outside-month'))][last()]"); //Доставка на последний день выбранного месяца
+    @FindBy(how = CLASS_NAME, using = "react-datepicker__header")
+    private WebElement datePickerDisplay; //Поп-ап с календарем
+    @FindBy(how = XPATH, using = ".//div[@class='react-datepicker']/button[text()='Next Month']")
+    private WebElement selectNextMonth; //Выбрать следующий месяц
+    @FindBy(how = XPATH, using = ".//div[contains(@class, 'react-datepicker__day')][preceding::div[contains(@class, 'react-datepicker__day--today')]]")
+    private WebElement tomorrow; //Доставка на завтра
+    @FindBy(how = XPATH, using = ".//div[@class='react-datepicker__week'][last()]/div[contains(@class, 'react-datepicker__day--0') and not (contains(@class, 'react-datepicker__day--outside-month'))][last()]")
+    private WebElement lastDayOfTheMonth; //Доставка на последний день выбранного месяца
 
     //Срок аренды
-    private final By rentDaysDisplay = By.className("Dropdown-menu"); //Поп-ап с выбором количества дней аренды
-    private final By rentDaysMin = By.xpath(".//div[@class='Dropdown-option' and text()='сутки']");
-    private final By rentDaysMax = By.xpath(".//div[@class='Dropdown-option' and text()='семеро суток']");
+    @FindBy(how = CLASS_NAME, using = "Dropdown-menu")
+    private WebElement rentDaysDisplay; //Поп-ап с выбором количества дней аренды
+    @FindBy(how = XPATH, using = ".//div[@class='Dropdown-option' and text()='сутки']")
+    private WebElement rentDaysMin; //Минимальный срок аренды - сутки
+    @FindBy(how = XPATH, using = ".//div[@class='Dropdown-option' and text()='семеро суток']")
+    private WebElement rentDaysMax; //Максимальный срок аренды - 7 суток
 
-    //Метро - список станций получается при вводе <setTimeout(function() {debugger;}, 5000);> в консоли
-    private final By stationListDisplay = By.className("select-search__select"); //Поп-ап списка станций
+    //Метро
+    @FindBy(how = CLASS_NAME, using = "select-search__select")
+    private WebElement stationListDisplay; //Поп-ап списка станций
 
     //Получить xpath станции по названию
     public String getXpathByStationName(String name) {
@@ -64,144 +93,127 @@ public class OrderPage {
     }
 
     //Ожидание загрузки страницы Для кого самокат
-    public OrderPage waitForOrderDetailsPage1() {
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(inputFirstName));
+    public OrderPage waitForOrderPage() {
+        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(inputFirstName));
         return this;
     }
 
     //Ввод имени и фамилии
     public OrderPage inputNameSurname(String name, String surname) {
-        driver.findElement(inputFirstName).sendKeys(name);
-        driver.findElement(inputSurname).sendKeys(surname);
+        inputFirstName.sendKeys(name);
+        inputSurname.sendKeys(surname);
         return this;
     }
 
     //Ввод адреса
     public OrderPage inputAddress(String address) {
-        driver.findElement(inputAddress).sendKeys(address);
+        inputAddress.sendKeys(address);
         return this;
     }
 
     //Выбор станции метро через ввод
     public OrderPage inputMetroStation(String stationName) {
-        driver.findElement(inputMetroStation).click();
-        driver.findElement(inputMetroStation).sendKeys(stationName);
-        driver.findElement(inputMetroStation).sendKeys(Keys.DOWN);
-        driver.findElement(inputMetroStation).sendKeys(Keys.RETURN);
+        inputMetroStation.click();
+        inputMetroStation.sendKeys(stationName);
+        inputMetroStation.sendKeys(Keys.DOWN);
+        inputMetroStation.sendKeys(Keys.RETURN);
         return this;
     }
 
     //Выбор станции метро через скролл
     public OrderPage selectMetroStation(String name) {
-        driver.findElement(inputMetroStation).click();
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(stationListDisplay));
-        By station = By.xpath(getXpathByStationName(name));
-        js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView();", driver.findElement(station));
-        driver.findElement(station).click();
+        inputMetroStation.click();
+        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(stationListDisplay));
+        WebElement station = driver.findElement(By.xpath(getXpathByStationName(name)));
+        js.executeScript("arguments[0].scrollIntoView();", station);
+        station.click();
         return this;
     }
 
     //Ввод номера телефона
     public OrderPage inputPhoneNumber(String phoneNumber) {
-        driver.findElement(inputPhoneNumber).sendKeys(phoneNumber);
+        inputPhoneNumber.sendKeys(phoneNumber);
         return this;
     }
 
     //Переход к странице Про аренду
     public OrderPage clickNext() {
-        driver.findElement(nextButton).click();
-        return this;
-    }
-
-    //Ожидание загрузки страницы Про аренду
-    public OrderPage waitForOrderDetailsPage2() {
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(inputDeliveryDate));
+        nextButton.click();
+        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(inputDeliveryDate));
         return this;
     }
 
     //Выбор доставки на завтра
     public OrderPage selectDeliveryDateTomorrow() {
-        driver.findElement(inputDeliveryDate).click();
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(datePickerDisplay));
-        driver.findElement(tomorrow).click();
+        inputDeliveryDate.click();
+        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(datePickerDisplay));
+        tomorrow.click();
         return this;
     }
 
     //Выбор доставки на последний день следующего месяца
     public OrderPage selectDeliveryDateLastDayOfNextMonth() {
-        driver.findElement(inputDeliveryDate).click();
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(selectNextMonth));
-        driver.findElement(selectNextMonth).click();
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(lastDayOfTheMonth));
-        driver.findElement(lastDayOfTheMonth).click();
+        inputDeliveryDate.click();
+        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(selectNextMonth));
+        selectNextMonth.click();
+        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(lastDayOfTheMonth));
+        lastDayOfTheMonth.click();
         return this;
     }
 
     //Выбор минимального срока аренды самоката
     public OrderPage selectRentDaysMin() {
-        driver.findElement(inputRentDays).click();
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(rentDaysDisplay));
-        driver.findElement(rentDaysMin).click();
+        inputRentDays.click();
+        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(rentDaysDisplay));
+        rentDaysMin.click();
         return this;
     }
 
     //Выбор максимального срока аренды самоката
     public OrderPage selectRentDaysMax() {
-        driver.findElement(inputRentDays).click();
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(rentDaysDisplay));
-        js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView();", driver.findElement(rentDaysMax));
-        driver.findElement(rentDaysMax).click();
+        inputRentDays.click();
+        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(rentDaysDisplay));
+        js.executeScript("arguments[0].scrollIntoView();", rentDaysMax);
+        rentDaysMax.click();
         return this;
     }
 
     //Выбор цвета самоката: черный - опционально
     public OrderPage selectBlackColor() {
-        driver.findElement(blackColor).click();
+        blackColor.click();
         return this;
     }
 
     //Выбор цвета самоката: серый - опционально
     public OrderPage selectGreyColor() {
-        driver.findElement(greyColor).click();
+        greyColor.click();
         return this;
     }
 
     //Добавление комментария - опционально
     public OrderPage addComment(String comment) {
-        driver.findElement(inputComment).sendKeys(comment);
+        inputComment.sendKeys(comment);
         return this;
     }
 
     //Заказать
     public OrderPage placeOrder() {
         new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(finishOrderButton));
-        driver.findElement(finishOrderButton).click();
-        return this;
-    }
-
-    //Подтверждение заказа
-    public OrderPage confirmOrder() {
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(confirmOrderPopup));
-        driver.findElement(confirmOrderButton).click();
-        return this;
-    }
-
-    //Ожидание окна подтверждения заказа
-    public OrderPage waitForOrderConfirm() {
-        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(orderConfirmedPopup));
+        finishOrderButton.click();
+        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(confirmOrderPopup));
+        confirmOrderButton.click();
         return this;
     }
 
     //Получение подтверждения заказа
     public String getOrderConfirmation() {
-        return driver.findElement(orderConfirmedPopup).getText();
+        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(orderConfirmedPopup));
+        return orderConfirmedPopup.getText();
     }
 
     //Переход к главной странице через логотип Скутера
     public HomePageOld goToHomePage() {
-        driver.findElement(homePageButton).click();
+        homePageButton.click();
         return new HomePageOld(driver);
     }
 }
