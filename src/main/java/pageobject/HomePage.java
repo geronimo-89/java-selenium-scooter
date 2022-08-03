@@ -56,16 +56,15 @@ public class HomePage extends ScooterPages {
     @FindAll({@FindBy(how = XPATH, using = ".//div[@data-accordion-component='AccordionItemPanel']")})
     private List<WebElement> answersList; //список ответов
 
+    //Принять куки
+    public HomePage acceptCookies() {
+        acceptCookiesButton.click();
+        return this;
+    }
 
     //Найти ответ на вопрос с нужным номером и промотать до него
     public HomePage scrollToQuestion(int number) {
         scrollToElement(questionsList.get(number));
-        return this;
-    }
-
-    //Принять куки
-    public HomePage acceptCookies() {
-        acceptCookiesButton.click();
         return this;
     }
 
