@@ -92,6 +92,21 @@ public class OrderPage {
     @FindBy(how = XPATH, using = ".//div[text()='Введите корректную фамилию']")
     private WebElement invalidSurnameError; //Введите корректную фамилию
 
+    @FindBy(how = XPATH, using = ".//div[text()='Введите корректный адрес']")
+    private WebElement invalidAddressError; //Введите корректный адрес
+
+    @FindBy(how = XPATH, using = ".//div[text()='Выберите станцию']")
+    private WebElement invalidMetroStationError; //Выберите станцию
+
+    @FindBy(how = XPATH, using = ".//div[text()='Введите корректный номер']")
+    private WebElement invalidPhoneNumberError; //Введите корректный номер
+
+
+    //Стандартное ожидание элемента
+    public WebElement waitForElement(WebElement element) {
+        return new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(element));
+    }
+
     //Получить xpath станции по названию
     public String getXpathByStationName(String name) {
         String xpath1 = ".//div[@class='select-search__select']/ul/li[@class='select-search__row']/button/div[text()='";
@@ -103,7 +118,7 @@ public class OrderPage {
 
     //Ожидание загрузки страницы Для кого самокат
     public OrderPage waitForOrderPage() {
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(firstNameInput));
+        waitForElement(firstNameInput);
         return this;
     }
 
@@ -136,7 +151,7 @@ public class OrderPage {
     //Выбор станции метро через скролл
     public OrderPage selectMetroStation(String name) {
         metroStationInput.click();
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(stationListDisplay));
+        waitForElement(stationListDisplay);
         WebElement station = driver.findElement(By.xpath(getXpathByStationName(name)));
         js.executeScript("arguments[0].scrollIntoView();", station);
         station.click();
@@ -152,14 +167,14 @@ public class OrderPage {
     //Переход к странице Про аренду
     public OrderPage clickNext() {
         nextButton.click();
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(deliveryDateInput));
+        waitForElement(deliveryDateInput);
         return this;
     }
 
     //Выбор доставки на завтра
     public OrderPage selectDeliveryDateTomorrow() {
         deliveryDateInput.click();
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(datePickerDisplay));
+        waitForElement(datePickerDisplay);
         tomorrow.click();
         return this;
     }
@@ -167,9 +182,9 @@ public class OrderPage {
     //Выбор доставки на последний день следующего месяца
     public OrderPage selectDeliveryDateLastDayOfNextMonth() {
         deliveryDateInput.click();
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(nextMonthButton));
+        waitForElement(nextMonthButton);
         nextMonthButton.click();
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(lastDayOfTheMonth));
+        waitForElement(lastDayOfTheMonth);
         lastDayOfTheMonth.click();
         return this;
     }
@@ -177,7 +192,7 @@ public class OrderPage {
     //Выбор минимального срока аренды самоката
     public OrderPage selectRentDaysMin() {
         rentDaysInput.click();
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(rentDaysDisplay));
+        waitForElement(rentDaysDisplay);
         rentDaysMin.click();
         return this;
     }
@@ -185,7 +200,7 @@ public class OrderPage {
     //Выбор максимального срока аренды самоката
     public OrderPage selectRentDaysMax() {
         rentDaysInput.click();
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(rentDaysDisplay));
+        waitForElement(rentDaysDisplay);
         js.executeScript("arguments[0].scrollIntoView();", rentDaysMax);
         rentDaysMax.click();
         return this;
@@ -211,16 +226,16 @@ public class OrderPage {
 
     //Заказать
     public OrderPage placeOrder() {
-        new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(finishOrderButton));
+       waitForElement(finishOrderButton);
         finishOrderButton.click();
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(confirmOrderPopup));
+        waitForElement(confirmOrderPopup);
         confirmOrderButton.click();
         return this;
     }
 
     //Получение подтверждения заказа
     public String getOrderConfirmation() {
-        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(orderIsConfirmedPopup));
+        waitForElement(orderIsConfirmedPopup);
         return orderIsConfirmedPopup.getText();
     }
 
@@ -238,7 +253,31 @@ public class OrderPage {
 
     //Ошибка: некорректное имя
     public boolean getInvalidNameError() {
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(invalidNameError));
+        waitForElement(invalidNameError);
         return invalidNameError.isDisplayed();
+    }
+
+    //Ошибка: некорректная фамилия
+    public boolean getInvalidSurnameError() {
+        waitForElement(invalidSurnameError);
+        return invalidSurnameError.isDisplayed();
+    }
+
+    //Ошибка: некорректный адрес
+    public boolean getInvalidAddressError() {
+        waitForElement(invalidAddressError);
+        return invalidAddressError.isDisplayed();
+    }
+
+    //Ошибка: не выбрана станция метро
+    public boolean getInvalidMetroStationError() {
+        waitForElement(invalidMetroStationError);
+        return invalidMetroStationError.isDisplayed();
+    }
+
+    //Ошибка: некорректный номер телефона
+    public boolean getInvalidPhoneNumberError() {
+        waitForElement(invalidPhoneNumberError);
+        return invalidPhoneNumberError.isDisplayed();
     }
 }

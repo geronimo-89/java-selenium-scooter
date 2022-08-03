@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import setup.SetUpChrome;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class OrderPageErrorsTest extends SetUpChrome {
@@ -23,7 +24,17 @@ public class OrderPageErrorsTest extends SetUpChrome {
                         .clickTab()
                         .getInvalidNameError()
         );
-
-
     }
+
+    @Test
+    public void checkInvalidSurnameError() {
+        assertTrue(
+                orderPage
+                        .inputSurname("Smith")
+                        .clickTab()
+                        .getInvalidSurnameError()
+        );
+    }
+
+    //Для метро нужно нажать Далее с пустым полем
 }

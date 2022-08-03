@@ -59,6 +59,10 @@ public class HomePage {
     @FindAll({@FindBy(how = XPATH, using = ".//div[@data-accordion-component='AccordionItemPanel']")})
     private List<WebElement> answersList; //список ответов
 
+    //Стандартное ожидание элемента
+    public WebElement waitForElement(WebElement element) {
+        return new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(element));
+    }
 
     //Найти ответ на вопрос с нужным номером и промотать до него
     public HomePage scrollToQuestion(int number) {
@@ -78,7 +82,7 @@ public class HomePage {
             throw new Exception("Question number must be between 0 and 7");
         }
         questionsList.get(number).click();
-        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(answersList.get(number)));
+        waitForElement(answersList.get(number));
         String answer = answersList.get(number).getText();
         return answer;
     }
@@ -98,7 +102,7 @@ public class HomePage {
 
     //Ожидание загрузки главной страницы
     public HomePage waitForHomePage() {
-        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(homePage));
+        waitForElement(homePage);
         return this;
     }
 
@@ -124,7 +128,7 @@ public class HomePage {
 
     //Ввести номер заказа
     public HomePage inputOrderNumber(String orderNumber) {
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(inputOrderNumber));
+        waitForElement(inputOrderNumber);
         inputOrderNumber.sendKeys(orderNumber);
         return this;
     }
