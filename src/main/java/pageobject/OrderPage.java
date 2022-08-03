@@ -19,6 +19,8 @@ public class OrderPage extends ScooterPages {
     public static final String STATION_LIKHOBORY = "Лихоборы";
     public static final String STATION_MAYAKOVSKAYA = "Маяковская";
 
+    public static final String STATION_KITAY_GOROD = "Китай-город";
+
     @FindBy(how = CLASS_NAME, using = "Header_LogoScooter__3lsAR")
     private WebElement homePageButton; //На главную страницу
 
