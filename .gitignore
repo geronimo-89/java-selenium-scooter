@@ -27,3 +27,4 @@ hs_err_pid*
 target/
 /src/test/java/firefoxtests/
 /src/test/java/pageobject/old/
+/src/main/java/pageobject/old/

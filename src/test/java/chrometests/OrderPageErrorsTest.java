@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import setup.SetUpChrome;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class OrderPageErrorsTest extends SetUpChrome {
@@ -36,5 +35,32 @@ public class OrderPageErrorsTest extends SetUpChrome {
         );
     }
 
-    //Для метро нужно нажать Далее с пустым полем
+    @Test
+    public void checkInvalidAddressError() {
+        assertTrue(
+                orderPage
+                        .inputAddress("Planet Mars")
+                        .clickTab()
+                        .getInvalidAddressError()
+        );
+    }
+
+    @Test
+    public void checkNoMetroStationSelectedError() {
+        assertTrue(
+                orderPage
+                        .clickNext()
+                        .getNoMetroStationSelectedError()
+        );
+    }
+
+    @Test
+    public void checkInvalidPhoneNumberError() {
+        assertTrue(
+                orderPage
+                        .inputPhoneNumber("0")
+                        .clickTab()
+                        .getInvalidPhoneNumberError()
+        );
+    }
 }

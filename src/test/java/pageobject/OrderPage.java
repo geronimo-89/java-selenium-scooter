@@ -6,11 +6,9 @@ import org.openqa.selenium.support.FindBy;
 import static org.openqa.selenium.support.How.*;
 
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pageobject.old.HomePageOld;
 
-public class OrderPage {
+public class OrderPage extends ScooterPages {
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
@@ -18,8 +16,9 @@ public class OrderPage {
         PageFactory.initElements(driver, this);
     }
 
-    private WebDriver driver;
-    private JavascriptExecutor js;
+    public static final String STATION_BULVAR_ROKOSSOVSKOGO = "Бульвар Рокоссовского";
+    public static final String STATION_LIKHOBORY = "Лихоборы";
+    public static final String STATION_MAYAKOVSKAYA = "Маяковская";
 
     @FindBy(how = CLASS_NAME, using = "Header_LogoScooter__3lsAR")
     private WebElement homePageButton; //На главную страницу
@@ -96,16 +95,10 @@ public class OrderPage {
     private WebElement invalidAddressError; //Введите корректный адрес
 
     @FindBy(how = XPATH, using = ".//div[text()='Выберите станцию']")
-    private WebElement invalidMetroStationError; //Выберите станцию
+    private WebElement noMetroStationSelectedError; //Выберите станцию
 
     @FindBy(how = XPATH, using = ".//div[text()='Введите корректный номер']")
     private WebElement invalidPhoneNumberError; //Введите корректный номер
-
-
-    //Стандартное ожидание элемента
-    public WebElement waitForElement(WebElement element) {
-        return new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(element));
-    }
 
     //Получить xpath станции по названию
     public String getXpathByStationName(String name) {
@@ -167,12 +160,12 @@ public class OrderPage {
     //Переход к странице Про аренду
     public OrderPage clickNext() {
         nextButton.click();
-        waitForElement(deliveryDateInput);
         return this;
     }
 
     //Выбор доставки на завтра
     public OrderPage selectDeliveryDateTomorrow() {
+        waitForElement(deliveryDateInput);
         deliveryDateInput.click();
         waitForElement(datePickerDisplay);
         tomorrow.click();
@@ -226,7 +219,7 @@ public class OrderPage {
 
     //Заказать
     public OrderPage placeOrder() {
-       waitForElement(finishOrderButton);
+        waitForElement(finishOrderButton);
         finishOrderButton.click();
         waitForElement(confirmOrderPopup);
         confirmOrderButton.click();
@@ -270,9 +263,9 @@ public class OrderPage {
     }
 
     //Ошибка: не выбрана станция метро
-    public boolean getInvalidMetroStationError() {
-        waitForElement(invalidMetroStationError);
-        return invalidMetroStationError.isDisplayed();
+    public boolean getNoMetroStationSelectedError() {
+        waitForElement(noMetroStationSelectedError);
+        return noMetroStationSelectedError.isDisplayed();
     }
 
     //Ошибка: некорректный номер телефона

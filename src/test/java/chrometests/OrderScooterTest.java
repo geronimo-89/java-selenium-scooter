@@ -1,15 +1,39 @@
 package chrometests;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import setup.SetUpChrome;
 
 import static org.junit.Assert.assertTrue;
+import static pageobject.OrderPage.*;
 
+@RunWith(Parameterized.class)
 public class OrderScooterTest extends SetUpChrome {
 
     private static final String EXPECTED_ORDER_CONFIRM_TEXT = "Заказ оформлен";
-    private static final String STATION_MAYAKOVSKAYA = "Маяковская";
-    private static final String STATION_PLANERNAYA = "Планерная";
+    private String name;
+    private String surname;
+    private String address;
+    private String phoneNumber;
+    private String metroStation;
+
+    public OrderScooterTest(String name, String surname, String address, String metroStation, String phoneNumber) {
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.metroStation = metroStation;
+        this.phoneNumber = phoneNumber;
+    }
+
+    @Parameterized.Parameters
+    public static Object[][] answersData() {
+        return new Object[][]{
+                {"АКСЁНА", "КАШТАНОВА", "г. Москва, ул. Тверская 99", STATION_MAYAKOVSKAYA, "+74956667788"},
+                {"Сергей Михалыч", "Христорождественский", "123456 г. Химки, ул. Дружбы, 78 кв. 90, подъезд 1", STATION_BULVAR_ROKOSSOVSKOGO, "9999999999999"},
+                {"Ян", "Ли", "Тверь", STATION_LIKHOBORY, "11111111111"},
+        };
+    }
 
 
     @Test
@@ -18,11 +42,11 @@ public class OrderScooterTest extends SetUpChrome {
                 homePage
                         .makeOrderFromUpperButton()
                         .waitForOrderPage()
-                        .inputName("Александр")
-                        .inputSurname("Пушкин")
-                        .inputAddress("г. Москва ул. Тверская 99")
-                        .selectMetroStation(STATION_MAYAKOVSKAYA)
-                        .inputPhoneNumber("89162223344")
+                        .inputName(name)
+                        .inputSurname(surname)
+                        .inputAddress(address)
+                        .selectMetroStation(metroStation)
+                        .inputPhoneNumber(phoneNumber)
                         .clickNext()
                         .selectDeliveryDateTomorrow()
                         .selectRentDaysMin()
@@ -40,15 +64,15 @@ public class OrderScooterTest extends SetUpChrome {
                 homePage
                         .makeOrderFromLowerButton()
                         .waitForOrderPage()
-                        .inputName("Вениамин")
-                        .inputSurname("Череззаборногузадерищенко")
-                        .inputAddress("город Химки, улица Дружбы, дом 1")
-                        .inputMetroStation(STATION_PLANERNAYA)
-                        .inputPhoneNumber("+79035556699")
+                        .inputName(name)
+                        .inputSurname(surname)
+                        .inputAddress(address)
+                        .inputMetroStation(metroStation)
+                        .inputPhoneNumber(phoneNumber)
                         .clickNext()
                         .selectDeliveryDateLastDayOfNextMonth()
                         .selectRentDaysMax()
-                        .addComment("Позвоните за час до доставки")
+                        .addComment("Съешь ещё этих мягких французских булок, да выпей же чаю.")
                         .placeOrder()
                         .getOrderConfirmation()
         )

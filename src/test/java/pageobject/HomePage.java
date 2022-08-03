@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePage {
+public class HomePage extends ScooterPages {
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -23,8 +23,7 @@ public class HomePage {
         PageFactory.initElements(driver, this);
     }
 
-    private WebDriver driver;
-    private JavascriptExecutor js;
+
     public static final String YANDEX_LINK = "https://yandex.ru/";
 
     //Cookies
@@ -59,10 +58,6 @@ public class HomePage {
     @FindAll({@FindBy(how = XPATH, using = ".//div[@data-accordion-component='AccordionItemPanel']")})
     private List<WebElement> answersList; //список ответов
 
-    //Стандартное ожидание элемента
-    public WebElement waitForElement(WebElement element) {
-        return new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(element));
-    }
 
     //Найти ответ на вопрос с нужным номером и промотать до него
     public HomePage scrollToQuestion(int number) {
