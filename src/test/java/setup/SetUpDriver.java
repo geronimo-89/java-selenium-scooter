@@ -9,7 +9,6 @@ import pageobject.HomePage;
 import pageobject.OrderPage;
 import pageobject.TrackPage;
 
-import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class SetUpDriver {
