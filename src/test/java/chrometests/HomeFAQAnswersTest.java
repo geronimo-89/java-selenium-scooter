@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import setup.SetUpChrome;
-
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)

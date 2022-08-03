@@ -2,11 +2,9 @@ package pageobject;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-
-import static org.openqa.selenium.support.How.*;
-
 import org.openqa.selenium.support.PageFactory;
 import pageobject.old.HomePageOld;
+import static org.openqa.selenium.support.How.*;
 
 public class OrderPage extends ScooterPages {
 

@@ -51,10 +51,10 @@ public class HomePage extends ScooterPages {
 
     //Раздел Вопросы о важном
     @FindAll({@FindBy(how = XPATH, using = ".//div[@data-accordion-component='AccordionItemHeading']")})
-    private List<WebElement> questionsList; //список вопросов
+    private List<WebElement> questionsList; //Список вопросов
 
     @FindAll({@FindBy(how = XPATH, using = ".//div[@data-accordion-component='AccordionItemPanel']")})
-    private List<WebElement> answersList; //список ответов
+    private List<WebElement> answersList; //Список ответов
 
     //Принять куки
     public HomePage acceptCookies() {

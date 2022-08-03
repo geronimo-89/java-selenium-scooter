@@ -12,4 +12,5 @@ public class SetUpChrome extends SetUpDriver {
         maximizeWindow();
         acceptCookies();
     }
+
 }

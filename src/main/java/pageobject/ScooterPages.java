@@ -26,4 +26,5 @@ public class ScooterPages {
     public String getCurrentURL() {
         return driver.getCurrentUrl();
     }
+
 }

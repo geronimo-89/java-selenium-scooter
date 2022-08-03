@@ -2,7 +2,6 @@ package chrometests;
 
 import org.junit.Test;
 import setup.SetUpChrome;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static pageobject.old.HomePageOld.YANDEX_LINK;

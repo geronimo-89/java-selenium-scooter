@@ -1,5 +1,4 @@
 package setup;
-
 import org.junit.Before;
 
 public class SetUpFirefox extends SetUpDriver {
