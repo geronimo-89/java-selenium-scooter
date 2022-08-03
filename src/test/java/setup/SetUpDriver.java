@@ -9,6 +9,9 @@ import pageobject.HomePage;
 import pageobject.OrderPage;
 import pageobject.TrackPage;
 
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
 public class SetUpDriver {
     protected WebDriver driver;
     protected HomePage homePage;
@@ -19,11 +22,13 @@ public class SetUpDriver {
     public void firefoxDriverSetUp() {
         WebDriverManager.firefoxdriver().setup();
         driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     public void chromeDriverSetUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     public void openHomePage() {

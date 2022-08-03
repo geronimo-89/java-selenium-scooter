@@ -2,8 +2,6 @@ package pageobject;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
-
 import static org.openqa.selenium.support.How.*;
 
 import org.openqa.selenium.support.PageFactory;
@@ -27,29 +25,29 @@ public class OrderPage {
 
     //Для кого самокат
     @FindBy(how = XPATH, using = ".//input[contains(@placeholder, 'Имя')]")
-    private WebElement inputFirstName; //Имя
+    private WebElement firstNameInput; //Имя
     @FindBy(how = XPATH, using = ".//input[contains(@placeholder, 'Фамилия')]")
-    private WebElement inputSurname; //Фамилия
+    private WebElement surnameInput; //Фамилия
     @FindBy(how = XPATH, using = ".//input[contains(@placeholder, 'Адрес')]")
-    private WebElement inputAddress; //Адрес
+    private WebElement addressInput; //Адрес
     @FindBy(how = XPATH, using = ".//input[contains(@placeholder, 'Станция метро')]")
-    private WebElement inputMetroStation; //Станция метро
+    private WebElement metroStationInput; //Станция метро
     @FindBy(how = XPATH, using = ".//input[contains(@placeholder, 'Телефон')]")
-    private WebElement inputPhoneNumber; //Телефон
+    private WebElement phoneNumberInput; //Телефон
     @FindBy(how = XPATH, using = ".//button[text()='Далее']")
     private WebElement nextButton; //кнопка Далее
 
     //Про аренду
     @FindBy(how = XPATH, using = ".//input[contains(@placeholder, 'Когда привезти')]")
-    private WebElement inputDeliveryDate; //Когда привезти самокат
+    private WebElement deliveryDateInput; //Когда привезти самокат
     @FindBy(how = XPATH, using = ".//div[contains(text(), 'Срок аренды')]")
-    private WebElement inputRentDays; //Срок аренды
+    private WebElement rentDaysInput; //Срок аренды
     @FindBy(how = ID, using = "black")
     private WebElement blackColor; //Цвет самоката - чёрный жемчуг
     @FindBy(how = ID, using = "grey")
     private WebElement greyColor; //Цвет самоката - серая безысходность
     @FindBy(how = XPATH, using = ".//input[contains(@placeholder, 'Комментарий для курьера')]")
-    private WebElement inputComment; //Комментарий для курьера - необязательное поле
+    private WebElement commentInput; //Комментарий для курьера - необязательное поле
     @FindBy(how = XPATH, using = ".//div[@class='Order_Buttons__1xGrp']/button[text()='Заказать']")
     private WebElement finishOrderButton; // Кнопка Заказать
 
@@ -59,13 +57,13 @@ public class OrderPage {
     @FindBy(how = XPATH, using = ".//button[text()='Да']")
     private WebElement confirmOrderButton; //Да
     @FindBy(how = XPATH, using = ".//div[contains(text(), 'Заказ оформлен')]")
-    private WebElement orderConfirmedPopup; //Поп-ап: заказ оформлен
+    private WebElement orderIsConfirmedPopup; //Поп-ап: заказ оформлен
 
     //Календарь
     @FindBy(how = CLASS_NAME, using = "react-datepicker__header")
     private WebElement datePickerDisplay; //Поп-ап с календарем
     @FindBy(how = XPATH, using = ".//div[@class='react-datepicker']/button[text()='Next Month']")
-    private WebElement selectNextMonth; //Выбрать следующий месяц
+    private WebElement nextMonthButton; //Выбрать следующий месяц
     @FindBy(how = XPATH, using = ".//div[contains(@class, 'react-datepicker__day')][preceding::div[contains(@class, 'react-datepicker__day--today')]]")
     private WebElement tomorrow; //Доставка на завтра
     @FindBy(how = XPATH, using = ".//div[@class='react-datepicker__week'][last()]/div[contains(@class, 'react-datepicker__day--0') and not (contains(@class, 'react-datepicker__day--outside-month'))][last()]")
@@ -94,35 +92,35 @@ public class OrderPage {
 
     //Ожидание загрузки страницы Для кого самокат
     public OrderPage waitForOrderPage() {
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(inputFirstName));
+        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(firstNameInput));
         return this;
     }
 
     //Ввод имени и фамилии
     public OrderPage inputNameSurname(String name, String surname) {
-        inputFirstName.sendKeys(name);
-        inputSurname.sendKeys(surname);
+        firstNameInput.sendKeys(name);
+        surnameInput.sendKeys(surname);
         return this;
     }
 
     //Ввод адреса
     public OrderPage inputAddress(String address) {
-        inputAddress.sendKeys(address);
+        addressInput.sendKeys(address);
         return this;
     }
 
     //Выбор станции метро через ввод
     public OrderPage inputMetroStation(String stationName) {
-        inputMetroStation.click();
-        inputMetroStation.sendKeys(stationName);
-        inputMetroStation.sendKeys(Keys.DOWN);
-        inputMetroStation.sendKeys(Keys.RETURN);
+        metroStationInput.click();
+        metroStationInput.sendKeys(stationName);
+        metroStationInput.sendKeys(Keys.DOWN);
+        metroStationInput.sendKeys(Keys.RETURN);
         return this;
     }
 
     //Выбор станции метро через скролл
     public OrderPage selectMetroStation(String name) {
-        inputMetroStation.click();
+        metroStationInput.click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(stationListDisplay));
         WebElement station = driver.findElement(By.xpath(getXpathByStationName(name)));
         js.executeScript("arguments[0].scrollIntoView();", station);
@@ -132,20 +130,20 @@ public class OrderPage {
 
     //Ввод номера телефона
     public OrderPage inputPhoneNumber(String phoneNumber) {
-        inputPhoneNumber.sendKeys(phoneNumber);
+        phoneNumberInput.sendKeys(phoneNumber);
         return this;
     }
 
     //Переход к странице Про аренду
     public OrderPage clickNext() {
         nextButton.click();
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(inputDeliveryDate));
+        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(deliveryDateInput));
         return this;
     }
 
     //Выбор доставки на завтра
     public OrderPage selectDeliveryDateTomorrow() {
-        inputDeliveryDate.click();
+        deliveryDateInput.click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(datePickerDisplay));
         tomorrow.click();
         return this;
@@ -153,9 +151,9 @@ public class OrderPage {
 
     //Выбор доставки на последний день следующего месяца
     public OrderPage selectDeliveryDateLastDayOfNextMonth() {
-        inputDeliveryDate.click();
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(selectNextMonth));
-        selectNextMonth.click();
+        deliveryDateInput.click();
+        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(nextMonthButton));
+        nextMonthButton.click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(lastDayOfTheMonth));
         lastDayOfTheMonth.click();
         return this;
@@ -163,7 +161,7 @@ public class OrderPage {
 
     //Выбор минимального срока аренды самоката
     public OrderPage selectRentDaysMin() {
-        inputRentDays.click();
+        rentDaysInput.click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(rentDaysDisplay));
         rentDaysMin.click();
         return this;
@@ -171,7 +169,7 @@ public class OrderPage {
 
     //Выбор максимального срока аренды самоката
     public OrderPage selectRentDaysMax() {
-        inputRentDays.click();
+        rentDaysInput.click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(rentDaysDisplay));
         js.executeScript("arguments[0].scrollIntoView();", rentDaysMax);
         rentDaysMax.click();
@@ -192,7 +190,7 @@ public class OrderPage {
 
     //Добавление комментария - опционально
     public OrderPage addComment(String comment) {
-        inputComment.sendKeys(comment);
+        commentInput.sendKeys(comment);
         return this;
     }
 
@@ -207,8 +205,8 @@ public class OrderPage {
 
     //Получение подтверждения заказа
     public String getOrderConfirmation() {
-        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(orderConfirmedPopup));
-        return orderConfirmedPopup.getText();
+        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(orderIsConfirmedPopup));
+        return orderIsConfirmedPopup.getText();
     }
 
     //Переход к главной странице через логотип Скутера

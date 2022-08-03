@@ -16,7 +16,7 @@ public class OrderScooterTest extends SetUpChrome {
     public void orderScooterCase1() {
         assertTrue((
                 homePage
-                        .orderMethod1()
+                        .makeOrderFromUpperButton()
                         .waitForOrderPage()
                         .inputNameSurname("Александр", "Пушкин")
                         .inputAddress("г. Москва ул. Тверская 99")
@@ -37,7 +37,7 @@ public class OrderScooterTest extends SetUpChrome {
     public void orderScooterCase2() {
         assertTrue((
                 homePage
-                        .orderMethod2()
+                        .makeOrderFromLowerButton()
                         .waitForOrderPage()
                         .inputNameSurname("Вениамин", "Череззаборногузадерищенко")
                         .inputAddress("город Химки, улица Дружбы, дом 1")
