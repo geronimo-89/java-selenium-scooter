@@ -18,7 +18,8 @@ public class HomeButtonsTest extends SetUpChrome {
                         .waitForOrderPage()
                         .goToHomePage()
                         .waitForHomePage()
-                        .getCurrentURL());
+                        .getCurrentURL()
+        );
     }
 
     @Test
@@ -26,7 +27,8 @@ public class HomeButtonsTest extends SetUpChrome {
         assertEquals(
                 YANDEX_LINK,
                 homePage.goToYandex()
-                        .getCurrentURL());
+                        .getCurrentURL()
+        );
     }
 
     @Test

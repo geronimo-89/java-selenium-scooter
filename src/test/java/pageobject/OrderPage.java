@@ -2,6 +2,7 @@ package pageobject;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+
 import static org.openqa.selenium.support.How.*;
 
 import org.openqa.selenium.support.PageFactory;
@@ -22,6 +23,9 @@ public class OrderPage {
 
     @FindBy(how = CLASS_NAME, using = "Header_LogoScooter__3lsAR")
     private WebElement homePageButton; //На главную страницу
+
+    @FindBy(how = CLASS_NAME, using = "Order_Content__bmtHS")
+    private WebElement orderForm; //Форма заказа
 
     //Для кого самокат
     @FindBy(how = XPATH, using = ".//input[contains(@placeholder, 'Имя')]")
@@ -81,6 +85,13 @@ public class OrderPage {
     @FindBy(how = CLASS_NAME, using = "select-search__select")
     private WebElement stationListDisplay; //Поп-ап списка станций
 
+    //Ошибки
+    @FindBy(how = XPATH, using = ".//div[text()='Введите корректное имя']")
+    private WebElement invalidNameError; //Введите корректное имя
+
+    @FindBy(how = XPATH, using = ".//div[text()='Введите корректную фамилию']")
+    private WebElement invalidSurnameError; //Введите корректную фамилию
+
     //Получить xpath станции по названию
     public String getXpathByStationName(String name) {
         String xpath1 = ".//div[@class='select-search__select']/ul/li[@class='select-search__row']/button/div[text()='";
@@ -97,8 +108,12 @@ public class OrderPage {
     }
 
     //Ввод имени и фамилии
-    public OrderPage inputNameSurname(String name, String surname) {
+    public OrderPage inputName(String name) {
         firstNameInput.sendKeys(name);
+        return this;
+    }
+
+    public OrderPage inputSurname(String surname) {
         surnameInput.sendKeys(surname);
         return this;
     }
@@ -213,5 +228,17 @@ public class OrderPage {
     public HomePageOld goToHomePage() {
         homePageButton.click();
         return new HomePageOld(driver);
+    }
+
+    //TAB для получения ошибки
+    public OrderPage clickTab() {
+        driver.switchTo().activeElement().sendKeys(Keys.TAB);
+        return this;
+    }
+
+    //Ошибка: некорректное имя
+    public boolean getInvalidNameError() {
+        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(invalidNameError));
+        return invalidNameError.isDisplayed();
     }
 }

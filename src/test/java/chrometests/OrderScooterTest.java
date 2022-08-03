@@ -18,7 +18,8 @@ public class OrderScooterTest extends SetUpChrome {
                 homePage
                         .makeOrderFromUpperButton()
                         .waitForOrderPage()
-                        .inputNameSurname("Александр", "Пушкин")
+                        .inputName("Александр")
+                        .inputSurname("Пушкин")
                         .inputAddress("г. Москва ул. Тверская 99")
                         .selectMetroStation(STATION_MAYAKOVSKAYA)
                         .inputPhoneNumber("89162223344")
@@ -39,7 +40,8 @@ public class OrderScooterTest extends SetUpChrome {
                 homePage
                         .makeOrderFromLowerButton()
                         .waitForOrderPage()
-                        .inputNameSurname("Вениамин", "Череззаборногузадерищенко")
+                        .inputName("Вениамин")
+                        .inputSurname("Череззаборногузадерищенко")
                         .inputAddress("город Химки, улица Дружбы, дом 1")
                         .inputMetroStation(STATION_PLANERNAYA)
                         .inputPhoneNumber("+79035556699")
