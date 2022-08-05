@@ -7,7 +7,6 @@ import setup.SetUpChrome;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-
 public class HomeFAQAnswersTest extends SetUpChrome {
 
     private int questionNumber;
@@ -27,7 +26,7 @@ public class HomeFAQAnswersTest extends SetUpChrome {
     private static final String EXPECTED_ANSWER_6 = "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.";
     private static final String EXPECTED_ANSWER_7 = "Да, обязательно. Всем самокатов! И Москве, и Московской области.";
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Тестовые данные: Вопрос {0} - ответ {1}")
     public static Object[][] answersData() {
         return new Object[][]{
                 {0, EXPECTED_ANSWER_0},

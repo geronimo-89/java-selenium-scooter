@@ -25,7 +25,7 @@ public class OrderScooterTest extends SetUpChrome {
         this.phoneNumber = phoneNumber;
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Тестовые данные: имя {0}, фамилия {1}, адрес {2}, метро {3}, телефон {4}")
     public static Object[][] answersData() {
         return new Object[][]{
                 {"АКСЁНА", "КАШТАНОВА", "г. Москва, ул. Тверская 99", STATION_MAYAKOVSKAYA, "+74956667788"},
