@@ -4,7 +4,7 @@ import org.junit.Test;
 import setup.SetUpChrome;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static pageobject.old.HomePageOld.YANDEX_LINK;
+import static pageobject.HomePage.YANDEX_LINK;
 
 public class HomeButtonsTest extends SetUpChrome {
 
