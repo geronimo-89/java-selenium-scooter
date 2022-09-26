@@ -3,7 +3,7 @@ package pageobject;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import pageobject.old.HomePageOld;
+
 import static org.openqa.selenium.support.How.*;
 
 public class OrderPage extends ScooterPages {
@@ -232,9 +232,9 @@ public class OrderPage extends ScooterPages {
     }
 
     //Переход к главной странице через логотип Скутера
-    public HomePageOld goToHomePage() {
+    public HomePage goToHomePage() {
         homePageButton.click();
-        return new HomePageOld(driver);
+        return new HomePage(driver);
     }
 
     //TAB для получения ошибки
