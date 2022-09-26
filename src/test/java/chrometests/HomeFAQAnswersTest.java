@@ -18,17 +18,8 @@ public class HomeFAQAnswersTest extends SetUpChrome {
     }
 
     @Parameterized.Parameters(name = "Тестовые данные: Вопрос {0}")
-    public static Object[][] answersData() {
-        return new Object[][]{
-                {0},
-                {1},
-                {2},
-                {3},
-                {4},
-                {5},
-                {6},
-                {7},
-        };
+    public static Object[] answersData() {
+        return new Object[]{0, 1, 2, 3, 4, 5, 6, 7};
     }
 
     @Test
