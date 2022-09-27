@@ -1,6 +1,5 @@
 package setup;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -19,13 +18,11 @@ public class SetUpDriver {
     public static final String HOME_PAGE_LINK = "https://qa-scooter.praktikum-services.ru/";
 
     public void firefoxDriverSetUp() {
-        WebDriverManager.firefoxdriver().setup();
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     public void chromeDriverSetUp() {
-        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
