@@ -18,6 +18,7 @@ public class SetUpDriver {
     public static final String HOME_PAGE_LINK = "https://qa-scooter.praktikum-services.ru/";
 
     public void firefoxDriverSetUp() {
+        System.setProperty("webdriver.chrome.driver", "./chromedriver");
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
