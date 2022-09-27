@@ -11,6 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class HomePage extends ScooterPages {
     }
 
 
-    public static final String YANDEX_LINK = "https://yandex.ru/";
+    public static final String YANDEX_LINK = "https://dzen.ru/?yredirect=true";
 
     //Cookies
     @FindBy(how = CLASS_NAME, using = "App_CookieButton__3cvqF")
@@ -103,7 +104,7 @@ public class HomePage extends ScooterPages {
         yandexButton.click();
         ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
-        new WebDriverWait(driver, 10).until(ExpectedConditions.urlToBe(YANDEX_LINK));
+        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.urlToBe(YANDEX_LINK));
         return this;
     }
 

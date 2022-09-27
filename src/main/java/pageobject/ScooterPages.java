@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 public class ScooterPages {
 
     protected WebDriver driver;
@@ -13,7 +15,7 @@ public class ScooterPages {
 
     //Стандартное ожидание элемента
     public WebElement waitForElement(WebElement element) {
-        return new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(element));
+        return new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.visibilityOf(element));
     }
 
     //Скролл до элемента
